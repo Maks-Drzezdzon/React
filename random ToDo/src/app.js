@@ -1,63 +1,3 @@
-class ToDo extends React.Component {
-  render() {
-    const title = "Todo ";
-    const data =
-      "this is filler data from main passed down to child coponents ";
-
-    const options = ["item1", "item2", "item3"];
-    return (
-      <div>
-        <Header title={title} />
-        <Action />
-        <Option data={data} />
-        <AddOption options={options} />
-      </div>
-    );
-  }
-}
-
-class Header extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>{this.props.title} app</h1>
-        <h2>pick a random task</h2>
-      </div>
-    );
-  }
-}
-
-class Action extends React.Component {
-  render() {
-    return (
-      <div>
-        <button>What should i do ?</button>
-      </div>
-    );
-  }
-}
-
-class Option extends React.Component {
-  render() {
-    return (
-      <div>
-        this.props.options.map(option => {
-          <Option key={option} optionText={option} />;
-        })
-      </div>
-    );
-  }
-}
-
-class AddOption extends React.Component {
-  render() {
-    return <div>AddOption Component</div>;
-  }
-}
-
-ReactDOM.render(<ToDo />, document.getElementById("app"));
-
-/*
 var app = {
   title: "Random ToDo",
   subtitle: "desc here",
@@ -122,4 +62,3 @@ const render = () => {
 };
 
 render();
-*/
