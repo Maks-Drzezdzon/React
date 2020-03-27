@@ -42,6 +42,11 @@ class Action extends React.Component {
 }
 
 class Options extends React.Component {
+  constructor(props) {
+    super(props);
+    // instead of having bind everytime this methid is called, you can bind it once in the constructor
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+  }
   handleRemoveAll() {
     alert("handle remove all action");
   }
