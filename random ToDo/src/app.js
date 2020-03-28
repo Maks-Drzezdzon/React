@@ -1,16 +1,15 @@
 class ToDo extends React.Component {
   render() {
     const title = "Todo ";
-    const data =
-      "this is filler data from main passed down to child coponents ";
-
+    const data = "data from main passed down to child coponents ";
     const options = ["item1", "item2", "item3"];
+
     return (
       <div>
-        <Header title={title} />
+        <Header title={title} data={data} />
         <Action />
-        <Option data={data} />
-        <AddOption options={options} />
+        <AddOption />
+        <Options options={options} />
       </div>
     );
   }
@@ -21,6 +20,7 @@ class Header extends React.Component {
     return (
       <div>
         <h1>{this.props.title} app</h1>
+        <h2>{this.props.data}</h2>
         <h2>pick a random task</h2>
       </div>
     );
@@ -28,10 +28,35 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
+  handlePick() {
+    alert("action alert");
+  }
+
   render() {
     return (
       <div>
-        <button>What should i do ?</button>
+        <button onClick={this.handlePick}>What should i do ?</button>
+      </div>
+    );
+  }
+}
+
+class Options extends React.Component {
+  constructor(props) {
+    super(props);
+    // instead of having bind everytime this methid is called, you can bind it once in the constructor
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+  }
+  handleRemoveAll() {
+    alert("handle remove all action");
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.handleRemoveAll}>Remove all</button>
+        {this.props.options.map(option => (
+          <Option key={option} optionText={option} />
+        ))}
       </div>
     );
   }
@@ -39,19 +64,28 @@ class Action extends React.Component {
 
 class Option extends React.Component {
   render() {
-    return (
-      <div>
-        this.props.options.map(option => {
-          <Option key={option} optionText={option} />;
-        })
-      </div>
-    );
+    return <div>{this.props.optionText}</div>;
   }
 }
 
 class AddOption extends React.Component {
+  handleAddOption(e) {
+    e.preventDefault();
+    const option = e.target.elements.option.value.trim();
+    if (option) {
+      alert(option);
+    }
+  }
+
   render() {
-    return <div>AddOption Component</div>;
+    return (
+      <div>
+        <form onSubmit={this.handleAddOption}>
+          <input type="text" name="option" />
+          <button>Add Option</button>
+        </form>
+      </div>
+    );
   }
 }
 
@@ -63,7 +97,6 @@ var app = {
   subtitle: "desc here",
   options: []
 };
-
 function getDesc(subtitle) {
   if (subtitle) {
     return <p>Description: {subtitle}</p>;
@@ -71,31 +104,24 @@ function getDesc(subtitle) {
     return undefined;
   }
 }
-
 const onFormSubmit = e => {
   e.preventDefault();
-
   const option = e.target.elements.option.value;
-
   if (option) {
     app.options.push(option);
     e.target.elements.option.value = "";
     render();
   }
 };
-
 const onRemoveAll = () => {
   app.options = [];
   render();
 };
-
 const onMakeDecision = () => {
   const randomNum = Math.floor(Math.random() * app.options.length);
   const option = app.options[randomNum];
-
   alert(option);
 };
-
 const render = () => {
   var template = (
     <div>
@@ -117,9 +143,7 @@ const render = () => {
     </div>
   );
   var appRoot = document.getElementById("app");
-
   ReactDOM.render(template, appRoot);
 };
-
 render();
 */

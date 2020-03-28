@@ -13,71 +13,25 @@ import { auth } from "./services/firebase";
 import logo from "./logo.svg";
 import "./App.css";
 
-function PrivateRoute({ component: Component, authenticated, ...rest }) {
+function App() {
   return (
-    <Route
-      {...rest}
-      render={props =>
-        authenticated === true ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: "/login", state: { from: props.location } }}
-          />
-        )
-      }
-    />
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
-}
-
-function PublicRoute({ component: Component, authenticated, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={(props) => authenticated === false
-        ? <Component {...props} />
-        : <Redirect to='/chat' />}
-    />
-  )
-}
-
-render() {
-  return this.state.loading === true ? <h2>Loading...</h2> : (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Home}></Route>
-        <PrivateRoute path="/chat" authenticated={this.state.authenticated} component={Chat}></PrivateRoute>
-        <PublicRoute path="/signup" authenticated={this.state.authenticated} component={Signup}></PublicRoute>
-        <PublicRoute path="/login" authenticated={this.state.authenticated} component={Login}></PublicRoute>
-      </Switch>
-    </Router>
-  );
-}
-
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      authenticated: false,
-      loading: true,
-    };
-  }
 }
 
 export default App;
-
-componentDidMount() {
-  this.removelistener = auth().onAuthStateChanged((user) => {
-    if (user) {
-      this.setState({
-        authenticated: true,
-        loading: false,
-      });
-    } else {
-      this.setState({
-        authenticated: false,
-        loading: false,
-      });
-    }
-  })
-}
