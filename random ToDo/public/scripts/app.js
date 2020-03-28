@@ -11,26 +11,53 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ToDo = function (_React$Component) {
   _inherits(ToDo, _React$Component);
 
-  function ToDo() {
+  function ToDo(props) {
     _classCallCheck(this, ToDo);
 
-    return _possibleConstructorReturn(this, (ToDo.__proto__ || Object.getPrototypeOf(ToDo)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (ToDo.__proto__ || Object.getPrototypeOf(ToDo)).call(this, props));
+
+    _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
+    _this.handlePick = _this.handlePick.bind(_this);
+    _this.state = {
+      options: ["item1", "item2", "item3"]
+    };
+    return _this;
   }
 
   _createClass(ToDo, [{
+    key: "handleDeleteOptions",
+    value: function handleDeleteOptions() {
+      this.setState(function () {
+        return {
+          options: []
+        };
+      });
+    }
+  }, {
+    key: "handlePick",
+    value: function handlePick() {
+      var randomNum = Math.floor(Math.random() * this.state.options.length);
+      var option = this.state.options[randomNum];
+      alert(option);
+    }
+  }, {
     key: "render",
     value: function render() {
       var title = "Todo ";
       var data = "data from main passed down to child coponents ";
-      var options = ["item1", "item2", "item3"];
-
       return React.createElement(
         "div",
         null,
         React.createElement(Header, { title: title, data: data }),
-        React.createElement(Action, null),
+        React.createElement(Action, {
+          hasOptions: this.state.options.length > 0,
+          handlePick: this.handlePick
+        }),
         React.createElement(AddOption, null),
-        React.createElement(Options, { options: options })
+        React.createElement(Options, {
+          options: this.state.options,
+          handleDeleteOptions: this.handleDeleteOptions
+        })
       );
     }
   }]);
@@ -86,11 +113,6 @@ var Action = function (_React$Component3) {
   }
 
   _createClass(Action, [{
-    key: "handlePick",
-    value: function handlePick() {
-      alert("action alert");
-    }
-  }, {
     key: "render",
     value: function render() {
       return React.createElement(
@@ -98,7 +120,10 @@ var Action = function (_React$Component3) {
         null,
         React.createElement(
           "button",
-          { onClick: this.handlePick },
+          {
+            disabled: !this.props.hasOptions,
+            onClick: this.props.handlePick
+          },
           "What should i do ?"
         )
       );
@@ -111,22 +136,13 @@ var Action = function (_React$Component3) {
 var Options = function (_React$Component4) {
   _inherits(Options, _React$Component4);
 
-  function Options(props) {
+  function Options() {
     _classCallCheck(this, Options);
 
-    // instead of having bind everytime this methid is called, you can bind it once in the constructor
-    var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
-
-    _this4.handleRemoveAll = _this4.handleRemoveAll.bind(_this4);
-    return _this4;
+    return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
   }
 
   _createClass(Options, [{
-    key: "handleRemoveAll",
-    value: function handleRemoveAll() {
-      alert("handle remove all action");
-    }
-  }, {
     key: "render",
     value: function render() {
       return React.createElement(
@@ -134,7 +150,7 @@ var Options = function (_React$Component4) {
         null,
         React.createElement(
           "button",
-          { onClick: this.handleRemoveAll },
+          { onClick: this.props.handleDeleteOptions },
           "Remove all"
         ),
         this.props.options.map(function (option) {
@@ -212,60 +228,3 @@ var AddOption = function (_React$Component6) {
 }(React.Component);
 
 ReactDOM.render(React.createElement(ToDo, null), document.getElementById("app"));
-
-/*
-var app = {
-  title: "Random ToDo",
-  subtitle: "desc here",
-  options: []
-};
-function getDesc(subtitle) {
-  if (subtitle) {
-    return <p>Description: {subtitle}</p>;
-  } else {
-    return undefined;
-  }
-}
-const onFormSubmit = e => {
-  e.preventDefault();
-  const option = e.target.elements.option.value;
-  if (option) {
-    app.options.push(option);
-    e.target.elements.option.value = "";
-    render();
-  }
-};
-const onRemoveAll = () => {
-  app.options = [];
-  render();
-};
-const onMakeDecision = () => {
-  const randomNum = Math.floor(Math.random() * app.options.length);
-  const option = app.options[randomNum];
-  alert(option);
-};
-const render = () => {
-  var template = (
-    <div>
-      <h1>{app.title ? app.title : "ToDo"}</h1>
-      {getDesc(app.subtitle)}
-      <button disabled={app.options.length === 0} onClick={onMakeDecision}>
-        What should i do?
-      </button>
-      <button onClick={onRemoveAll}>Clear</button>
-      <ol>
-        {app.options.map(option => {
-          return <li key={option}>{option}</li>;
-        })}
-      </ol>
-      <form onSubmit={onFormSubmit}>
-        <input type="text" name="option" />
-        <button>Add Option</button>
-      </form>
-    </div>
-  );
-  var appRoot = document.getElementById("app");
-  ReactDOM.render(template, appRoot);
-};
-render();
-*/
