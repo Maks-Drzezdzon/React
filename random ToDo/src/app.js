@@ -75,7 +75,7 @@ class ToDo extends React.Component {
   }
 }
 
-IndecisionApp.defaultProps = {
+ToDo.defaultProps = {
   options: []
 };
 
