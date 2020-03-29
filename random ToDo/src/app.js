@@ -15,7 +15,40 @@ class ToDo extends React.Component {
       };
     });
   }
-
+  /*
+  // stateless versions of methods
+    const Action = (props) => {
+      return (
+        <div>
+          <button
+            onClick={props.handlePick}
+            disabled={!props.hasOptions}
+          >
+            What should I do?
+          </button>
+        </div>
+      );
+    };
+    
+    const Options = (props) => {
+      return (
+        <div>
+          <button onClick={props.handleDeleteOptions}>Remove All</button>
+          {
+            props.options.map((option) => <Option key={option} optionText={option} />)
+          }
+        </div>
+      );
+    };
+    
+    const Option = (props) => {
+      return (
+        <div>
+          {props.optionText}
+        </div>
+      );
+    };
+    */
   handlePick() {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[randomNum];
