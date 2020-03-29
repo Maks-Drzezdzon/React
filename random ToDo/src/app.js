@@ -17,6 +17,10 @@ class ToDo extends React.Component {
   }
   /*
   // stateless versions of methods
+  //  setting up default props for stateless methods
+  Header.defaultProps = {
+    title: 'ToDo'
+  };
     const Action = (props) => {
       return (
         <div>
