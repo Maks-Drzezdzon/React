@@ -1,3 +1,3 @@
 const getFirstName = fullName => fullName.split(" ")[0];
-
-console.log(getFirstName("test name"));
+// ToDo comment code for later
+console.log(getFirstName("M D"));

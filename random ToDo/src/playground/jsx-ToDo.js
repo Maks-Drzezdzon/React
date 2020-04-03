@@ -1,8 +1,8 @@
-console.log("App.js is running!");
-
+console.log("App running!");
+// ToDo comment code for later
 const app = {
   title: "ToDo",
-  subtitle: "test",
+  subtitle: "Pick random",
   options: []
 };
 

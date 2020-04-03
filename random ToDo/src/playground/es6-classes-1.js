@@ -1,5 +1,5 @@
 class Person {
-  constructor(name = 'Anonymous', age = 0) {
+  constructor(name = "Anonymous", age = 0) {
     this.name = name;
     this.age = age;
   }
@@ -10,7 +10,7 @@ class Person {
     return `${this.name} is ${this.age} year(s) old.`;
   }
 }
-
+// ToDo comment code for later
 class Student extends Person {
   constructor(name, age, major) {
     super(name, age);
@@ -46,8 +46,8 @@ class Traveler extends Person {
   }
 }
 
-const me = new Traveler('Andrew Mead', 26, 'Philadelphia');
+const me = new Traveler("M D", 24, "I");
 console.log(me.getGreeting());
 
-const other = new Traveler(undefined, undefined, 'Nowhere');
+const other = new Traveler(undefined, undefined, "Nowhere");
 console.log(other.getGreeting());
